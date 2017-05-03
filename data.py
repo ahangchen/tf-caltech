@@ -13,38 +13,52 @@ caltech_test_neg_path = caltech_test_path + 'neg/'
 
 
 def read_caltech():
-    pos_train_features = list()
-    pos_train_labels = list()
-    neg_train_features = list()
-    neg_train_labels = list()
-    pos_test_features = list()
-    pos_test_labels = list()
-    neg_test_features = list()
-    neg_test_labels = list()
+    train_features = list()
+    train_labels = list()
+    test_features = list()
+    test_labels = list()
+    i = 0
+    max_read = 15000
     for files in os.listdir(caltech_train_pos_path):
+        if i > max_read:
+            break
+        i += 1
         path = os.path.join(caltech_train_pos_path, files)
         features = read_lines(path)
-        print(path)
-        pos_train_features.append(features)
-        pos_train_labels.append(1)
+        # print(path)
+        train_features.append(features)
+        train_labels.append(1)
+    i = 0
     for files in os.listdir(caltech_train_neg_path):
+        if i > max_read:
+            break
+        i += 1
         path = os.path.join(caltech_train_neg_path, files)
-        print(path)
+        # print(path)
         features = read_lines(path)
-        neg_train_features.append(features)
-        neg_train_labels.append(0)
+        train_features.append(features)
+        train_labels.append(0)
+    i = 0
+    for files in os.listdir(caltech_test_pos_path):
+        if i > max_read:
+            break
+        i += 1
+        path = os.path.join(caltech_test_pos_path, files)
+        # print(path)
+        features = read_lines(path)
+        test_features.append(features)
+        test_labels.append(1)
+    i = 0
     for files in os.listdir(caltech_test_neg_path):
+        if i > max_read:
+            break
+        i += 1
         path = os.path.join(caltech_test_neg_path, files)
-        print(path)
+        # print(path)
         features = read_lines(path)
-        pos_test_features.append(features)
-        pos_test_labels.append(1)
-    for files in os.listdir(caltech_test_neg_path):
-        path = os.path.join(caltech_test_neg_path, files)
-        print(path)
-        features = read_lines(path)
-        neg_test_features.append(features)
-        neg_test_labels.append(0)
+        test_features.append(features)
+        test_labels.append(0)
+    return train_features, train_labels, test_features, test_labels
 
 
 if __name__ == '__main__':
