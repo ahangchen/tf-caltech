@@ -14,9 +14,13 @@ test_labels = np.asarray(test_labels, dtype=np.int32)
 
 feature_columns = learn.infer_real_valued_columns_from_input(data)
 classifier = learn.DNNClassifier(feature_columns=feature_columns,
+                                 model_dir='ct_model',
                                  activation_fn=tf.nn.sigmoid,
-                                 hidden_units=[40, 20, 10, 5], n_classes=2)
+                                 hidden_units=[10, 20, 10], n_classes=2)
 classifier.fit(data, labels, batch_size=200, steps=10000)
 result = classifier.evaluate(test_data, test_labels)
+print 'recall'
+print result['recall/positive_threshold_0.500000_mean']
+print 'accuracy'
 print result["accuracy"]
 
