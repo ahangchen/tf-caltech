@@ -1,5 +1,6 @@
 # coding=utf-8
 import os
+import random
 
 from file_helper import read_lines
 
@@ -26,6 +27,10 @@ def read_caltech():
         path = os.path.join(caltech_train_pos_path, files)
         features = read_lines(path)
         # print(path)
+        train_features.append(features)
+        train_labels.append(1)
+        train_features.append(features)
+        train_labels.append(1)
         train_features.append(features)
         train_labels.append(1)
     i = 0
@@ -58,6 +63,16 @@ def read_caltech():
         features = read_lines(path)
         test_features.append(features)
         test_labels.append(0)
+    train_tuples = zip(train_features, train_labels)
+    random.shuffle(train_tuples)
+    train_features = [train_tuple[0] for train_tuple in train_tuples]
+    train_labels = [train_tuple[1] for train_tuple in train_tuples]
+    test_tuples = zip(test_features, test_labels)
+
+    random.shuffle(test_tuples)
+    test_features = [test_tuple[0] for test_tuple in test_tuples]
+    test_labels = [test_tuple[1] for test_tuple in test_tuples]
+
     return train_features, train_labels, test_features, test_labels
 
 
